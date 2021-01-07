@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu.enums;
+package com.github.zonev.abu.enums;
 
 /**
  * 字段绑定场景定义

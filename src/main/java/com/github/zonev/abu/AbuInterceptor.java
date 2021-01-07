@@ -22,14 +22,16 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu;
+package com.github.zonev.abu;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author Zonev

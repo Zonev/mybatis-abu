@@ -22,11 +22,12 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu.config;
+package com.github.zonev.abu.config;
 
-import org.zonev.abu.enums.BindScene;
+import com.github.zonev.abu.enums.BindScene;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 主要配置类

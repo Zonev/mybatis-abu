@@ -22,19 +22,22 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu;
+package com.github.zonev.abu;
 
+import com.github.zonev.abu.config.BindDataConfig;
+import com.github.zonev.abu.enums.BindScene;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.zonev.abu.config.BindDataConfig;
 import org.zonev.abu.dao.StudentsDao;
 import org.zonev.abu.dto.StudentsInsertDTO;
-import org.zonev.abu.enums.BindScene;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zonev
@@ -49,7 +52,7 @@ public class SimpleTest {
 
     @BeforeEach
     public void getSqlSession() {
-        sqlSession = SqlSessionHelper.getSqlSession();
+        sqlSession = org.zonev.abu.SqlSessionHelper.getSqlSession();
 
         bindDataConfig = new BindDataConfig();
         bindDataConfig

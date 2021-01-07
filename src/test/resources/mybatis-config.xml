@@ -28,8 +28,10 @@
 
 <configuration>
 
+    <properties resource="db.properties"/>
+
     <plugins>
-        <plugin interceptor="org.zonev.abu.AbuInterceptor"/>
+        <plugin interceptor="com.github.zonev.abu.AbuInterceptor"/>
     </plugins>
 
     <environments default="development">
@@ -37,16 +39,15 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url"
-                          value=""/>
-                <property name="username" value=""/>
-                <property name="password" value=""/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
-        <mapper resource="org/zonev/abu/mapper/studentsMapper.xml"/>
+        <mapper resource="com/github/zonev/abu/mapper/studentsMapper.xml"/>
     </mappers>
 
 </configuration>

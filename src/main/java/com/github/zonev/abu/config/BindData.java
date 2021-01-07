@@ -22,27 +22,49 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu;
+package com.github.zonev.abu.config;
 
-import org.apache.ibatis.mapping.SqlCommandType;
-import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.reflection.SystemMetaObject;
-import org.zonev.abu.config.BindDataConfig;
+import com.github.zonev.abu.enums.BindScene;
+
+import java.util.function.Supplier;
 
 /**
- * 字段处理器
+ * 绑定参数元信息
  *
  * @author Zonev
  */
-public class FieldProcessor {
+public class BindData {
 
-    public void fieldFill(SqlCommandType sqlCommandType, Object o) {
-        try {
-            MetaObject metaObject = SystemMetaObject.forObject(o);
-            BindDataConfig.getConfig()
-                    .get(sqlCommandType.toString())
-                    .forEach((k, v) -> metaObject.setValue(k, v.getSupplier().get()));
-        } catch (Exception ignored) {
-        }
+    /**
+     * 绑定的字段名，该属性为实体类中对应的属性名
+     */
+    private final String column;
+
+    /**
+     * 字段名对应的取值方法或固定值
+     */
+    private final Supplier<Object> supplier;
+
+    /**
+     * 生效场景 {@link BindScene}
+     */
+    private final BindScene[] scene;
+
+    protected BindData(String column, Supplier<Object> supplier, BindScene[] scene) {
+        this.column = column;
+        this.supplier = supplier;
+        this.scene = scene;
+    }
+
+    public String getColumn() {
+        return column;
+    }
+
+    public Supplier<Object> getSupplier() {
+        return supplier;
+    }
+
+    public BindScene[] getScene() {
+        return scene;
     }
 }
