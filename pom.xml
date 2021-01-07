@@ -32,6 +32,10 @@
     <artifactId>abu</artifactId>
     <version>1.0</version>
 
+    <name>mybatis-abu</name>
+    <description>基于 Mybatis Plugin 机制实现的在 update 或 insert 数据时自动绑定通用字段，让业务代码更加精简</description>
+    <url>https://github.com/Zonev/mybatis-abu</url>
+
     <licenses>
         <license>
             <name>The MIT License (MIT)</name>
@@ -47,13 +51,10 @@
     </developers>
 
     <scm>
-        <url>https://github.com/Zonev/mybatis-abu</url>
-        <connection>scm:https://github.com/Zonev/mybatis-abu.git</connection>
-        <developerConnection>scm:https://github.com/Zonev/mybatis-abu.git</developerConnection>
+        <url>git@github.com:Zonev/mybatis-abu.git</url>
+        <connection>scm:git@github.com:Zonev/mybatis-abu.git</connection>
+        <developerConnection>scm:git@github.com:Zonev/mybatis-abu.git</developerConnection>
     </scm>
-
-    <name>mybatis-abu</name>
-    <description>基于 Mybatis Plugin 机制实现的在 update 或 insert 数据时自动绑定通用字段，让业务代码更加精简</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
