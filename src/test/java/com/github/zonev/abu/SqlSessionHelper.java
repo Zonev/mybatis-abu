@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu;
+package com.github.zonev.abu;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

@@ -22,10 +22,38 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu.dto;
+package com.github.zonev.abu;
+
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.JdbcParameter;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.statement.update.Update;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * @author Zonev
  */
-public class StudentsUpdateDTO {
+public class JSqlTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(JSqlTest.class);
+
+    @Test
+    public void sqlParser() throws Exception {
+        String sql = "update t_user set age = ?,update_time = ? where username = ?";
+        Update update = (Update) CCJSqlParserUtil.parse(sql);
+
+        List<Column> columnList = update.getColumns();
+        columnList.add(new Column("id"));
+        update.setColumns(columnList);
+
+        List<Expression> expressionList = update.getExpressions();
+        expressionList.add(new JdbcParameter());
+
+        logger.info(update.toString());
+    }
 }

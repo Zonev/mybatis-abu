@@ -22,30 +22,29 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu.dto;
+package com.github.zonev.abu.dto;
 
 /**
  * @author Zonev
  */
-public class StudentsInsertDTO {
+public class UserDTO {
 
     private Long id;
 
-    private String name;
+    private String username;
 
-    private Integer gradeNum;
-
-    private Integer classNum;
-
-    private String createBy;
+    private Integer age;
 
     private Long createTime;
-
-    private String updateBy;
 
     private Long updateTime;
 
     private Boolean delete;
+
+    public UserDTO(String username, Integer age) {
+        this.username = username;
+        this.age = age;
+    }
 
     public Long getId() {
         return id;
@@ -55,36 +54,20 @@ public class StudentsInsertDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getGradeNum() {
-        return gradeNum;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setGradeNum(Integer gradeNum) {
-        this.gradeNum = gradeNum;
-    }
-
-    public Integer getClassNum() {
-        return classNum;
-    }
-
-    public void setClassNum(Integer classNum) {
-        this.classNum = classNum;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Long getCreateTime() {
@@ -93,14 +76,6 @@ public class StudentsInsertDTO {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
     }
 
     public Long getUpdateTime() {
@@ -119,28 +94,13 @@ public class StudentsInsertDTO {
         this.delete = delete;
     }
 
-    /**
-     * 在业务中，开发者最关心的就是业务字段。主键、创建人、创建时间、逻辑删除标识等这些通用字段不应该每次都让开发者重复填写
-     *
-     * @param name     name
-     * @param gradeNum gradeNum
-     * @param classNum classNum
-     */
-    public StudentsInsertDTO(String name, Integer gradeNum, Integer classNum) {
-        this.name = name;
-        this.gradeNum = gradeNum;
-        this.classNum = classNum;
-    }
-
     @Override
     public String toString() {
-        return "StudentsInsertDTO{" +
-                "name='" + name + '\'' +
-                ", gradeNum=" + gradeNum +
-                ", classNum=" + classNum +
-                ", createBy='" + createBy + '\'' +
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
                 ", createTime=" + createTime +
-                ", updateBy='" + updateBy + '\'' +
                 ", updateTime=" + updateTime +
                 ", delete=" + delete +
                 '}';

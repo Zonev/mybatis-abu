@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ MIT License
   ~
@@ -23,31 +23,22 @@
   ~ SOFTWARE.
   -->
 
-<!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<configuration>
+<mapper namespace="com.github.zonev.abu.dao.UserDao">
 
-    <properties resource="db.properties"/>
+    <insert id="insertByDTO" parameterType="com.github.zonev.abu.dto.UserDTO">
+        insert into t_user
+        (id, username, age, create_time, update_time, is_delete)
+        values
+        (#{id}, #{username}, #{age}, #{createTime}, #{updateTime}, #{delete})
+    </insert>
 
-    <plugins>
-        <plugin interceptor="com.github.zonev.abu.AbuInterceptor"/>
-    </plugins>
+    <update id="updateAgeByUsername" parameterType="com.github.zonev.abu.dto.UserDTO">
+        update t_user
+        set age = #{age},
+            update_time = #{updateTime}
+        where username = #{username}
+    </update>
 
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
-            </dataSource>
-        </environment>
-    </environments>
-
-    <mappers>
-        <mapper resource="com/github/zonev/abu/mapper/userMapper.xml"/>
-    </mappers>
-
-</configuration>
+</mapper>

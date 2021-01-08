@@ -22,25 +22,31 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu.util;
-
-import java.util.Random;
+package com.github.zonev.abu.util;
 
 /**
  * @author Zonev
  */
-public class IdUtils {
+public class CommonFieldUtils {
 
-    private IdUtils() {
-
+    private CommonFieldUtils() {
     }
 
     /**
-     * 获取主键
+     * 模拟获取主键
      *
      * @return Long
      */
     public static Long nextId() {
-        return new Random().nextLong();
+        return time() / 1000;
+    }
+
+    /**
+     * 获取时间戳
+     *
+     * @return Long
+     */
+    public static Long time() {
+        return System.currentTimeMillis();
     }
 }

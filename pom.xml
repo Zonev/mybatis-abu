@@ -59,6 +59,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mybatis.version>3.5.5</mybatis.version>
+        <jsqlparser.version>4.0</jsqlparser.version>
         <junit.version>5.7.0</junit.version>
         <mysql-connector.version>8.0.22</mysql-connector.version>
         <logback.version>1.2.3</logback.version>
@@ -70,6 +71,12 @@
             <artifactId>mybatis</artifactId>
             <optional>true</optional>
             <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <optional>true</optional>
+            <version>${jsqlparser.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -109,16 +116,16 @@
                             <target>1.8</target>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <configuration>
-                            <additionalOptions>
-                                <additionalOption>-Xdoclint:none</additionalOption>
-                            </additionalOptions>
-                        </configuration>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                        <version>3.0.0</version>-->
+<!--                        <configuration>-->
+<!--                            <additionalOptions>-->
+<!--                                <additionalOption>-Xdoclint:none</additionalOption>-->
+<!--                            </additionalOptions>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
@@ -151,24 +158,24 @@
                         </executions>
                     </plugin>
                     <!-- Javadoc -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <configuration>
-                            <additionalOptions>
-                                <additionalOption>-Xdoclint:none</additionalOption>
-                            </additionalOptions>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                        <version>3.0.0</version>-->
+<!--                        <configuration>-->
+<!--                            <additionalOptions>-->
+<!--                                <additionalOption>-Xdoclint:none</additionalOption>-->
+<!--                            </additionalOptions>-->
+<!--                        </configuration>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <phase>package</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>jar</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                     <!-- mvn clean deploy -P release-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

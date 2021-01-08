@@ -22,26 +22,16 @@
  * SOFTWARE.
  */
 
-package org.zonev.abu.dao;
+package com.github.zonev.abu.dao;
 
-import org.apache.ibatis.annotations.Param;
-import org.zonev.abu.dto.StudentsInsertDTO;
-
-import java.util.List;
-import java.util.Map;
+import com.github.zonev.abu.dto.UserDTO;
 
 /**
  * @author Zonev
  */
-public interface StudentsDao {
+public interface UserDao {
 
-    int insertStudentByEntity(StudentsInsertDTO studentsInsertDTO);
+    int insertByDTO(UserDTO userDTO);
 
-    int insertStudentByColumn(@Param("name") String name,
-                              @Param("gradeNum") Integer gradeNum,
-                              @Param("classNum") Integer classNum);
-
-    int insertBatchStudentByEntity(List<StudentsInsertDTO> studentsInsertDTOList);
-
-    int insertStudentByMap(Map<String, Object> map);
+    int updateAgeByUsername(UserDTO userDTO);
 }
