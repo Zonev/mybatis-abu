@@ -1,6 +1,6 @@
 # mybatis-abu
 
-![MIT](https://img.shields.io/badge/lincense-MIT-green) ![maven](https://img.shields.io/badge/maven-1.0-green) ![jdk](https://img.shields.io/badge/jdk-jdk1.8%2B-red) ![mybatis](https://img.shields.io/badge/mybatis-3.0.0%2B-red)
+![MIT](https://img.shields.io/badge/lincense-MIT-green) ![maven](https://img.shields.io/badge/maven-1.0-green) ![jdk](https://img.shields.io/badge/jdk-1.8%2B-red) ![mybatis](https://img.shields.io/badge/mybatis-3.0.0%2B-red)
 
 mybatis 扩展插件，可以在 insert 或 update 时对公共字段统一修改，减少不必要的重复代码。
 
@@ -58,7 +58,7 @@ mybatis 扩展插件，可以在 insert 或 update 时对公共字段统一修�
    private AreaDao areaDao;
    
    @Override
-   ublic void save() {
+   public void save() {
         // service 层在做新增或更新操作时，只需关注业务逻辑字段，不需要 set 公共字段
         Area area = new Area();
         area.setAreaName("杭州");
