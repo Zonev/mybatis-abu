@@ -76,6 +76,7 @@
             <groupId>com.github.jsqlparser</groupId>
             <artifactId>jsqlparser</artifactId>
             <optional>true</optional>
+            <scope>test</scope>
             <version>${jsqlparser.version}</version>
         </dependency>
         <dependency>
@@ -116,16 +117,6 @@
                             <target>1.8</target>
                         </configuration>
                     </plugin>
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                        <version>3.0.0</version>-->
-<!--                        <configuration>-->
-<!--                            <additionalOptions>-->
-<!--                                <additionalOption>-Xdoclint:none</additionalOption>-->
-<!--                            </additionalOptions>-->
-<!--                        </configuration>-->
-<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
@@ -157,25 +148,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- Javadoc -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                        <version>3.0.0</version>-->
-<!--                        <configuration>-->
-<!--                            <additionalOptions>-->
-<!--                                <additionalOption>-Xdoclint:none</additionalOption>-->
-<!--                            </additionalOptions>-->
-<!--                        </configuration>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <phase>package</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>jar</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
                     <!-- mvn clean deploy -P release-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

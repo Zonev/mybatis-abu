@@ -24,29 +24,20 @@
 
 package com.github.zonev.abu.util;
 
+import org.apache.ibatis.reflection.MetaObject;
+
+import java.util.Objects;
+
 /**
  * @author Zonev
  */
-public class CommonFieldUtils {
+public class FieldBindUtils {
 
-    private CommonFieldUtils() {
-    }
+    private FieldBindUtils() {}
 
-    /**
-     * 模拟获取主键
-     *
-     * @return Long
-     */
-    public static Long nextId() {
-        return (long)((Math.random() * 9 + 1) * 100);
-    }
-
-    /**
-     * 获取时间戳
-     *
-     * @return Long
-     */
-    public static Long time() {
-        return System.currentTimeMillis();
+    public static void setByJavaField(MetaObject metaObject, String javaField, Object fieldValue) {
+        if (metaObject.hasSetter(javaField) && Objects.isNull(metaObject.getValue(javaField))) {
+            metaObject.setValue(javaField, fieldValue);
+        }
     }
 }

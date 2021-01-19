@@ -24,25 +24,38 @@
 
 package com.github.zonev.abu;
 
-import com.github.zonev.abu.config.BindDataConfig;
-import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 字段处理器
- *
  * @author Zonev
  */
-public class FieldProcessor {
+public class MetaObjectTest {
 
-    public void fieldFill(SqlCommandType sqlCommandType, Object o) {
-        try {
-            MetaObject metaObject = SystemMetaObject.forObject(o);
-            BindDataConfig.getConfig()
-                    .get(sqlCommandType.toString())
-                    .forEach((k, v) -> metaObject.setValue(k, v.getSupplier().get()));
-        } catch (Exception ignored) {
-        }
+    private final static Logger logger = LoggerFactory.getLogger(MetaObjectTest.class);
+
+    static class Member {
+        private String name;
+        private Integer age;
+    }
+
+    @Test
+    public void bean() {
+        MetaObject metaObject = SystemMetaObject.forObject(new Member());
+        boolean hasSetterOfName = metaObject.hasSetter("name");
+        boolean hasSetterOfAge = metaObject.hasSetter("age");
+        logger.info("has set -> {}, {}", hasSetterOfName, hasSetterOfAge);
+
+        metaObject.setValue("name", "Tom");
+        System.out.println(metaObject.getValue("name"));
+
+        System.out.println(metaObject.hasSetter("age111"));
+//
+//        System.out.println(metaObject.getGetterType("name"));
+//
+//        System.out.println(metaObject.getSetterType("age"));
     }
 }

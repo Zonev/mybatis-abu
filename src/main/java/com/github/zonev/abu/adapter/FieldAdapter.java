@@ -22,31 +22,16 @@
  * SOFTWARE.
  */
 
-package com.github.zonev.abu.util;
+package com.github.zonev.abu.adapter;
+
+import org.apache.ibatis.mapping.MappedStatement;
 
 /**
  * @author Zonev
  */
-public class CommonFieldUtils {
+public interface FieldAdapter {
 
-    private CommonFieldUtils() {
-    }
+    boolean support(Object parameter);
 
-    /**
-     * 模拟获取主键
-     *
-     * @return Long
-     */
-    public static Long nextId() {
-        return (long)((Math.random() * 9 + 1) * 100);
-    }
-
-    /**
-     * 获取时间戳
-     *
-     * @return Long
-     */
-    public static Long time() {
-        return System.currentTimeMillis();
-    }
+    void doFieldFill(MappedStatement mappedStatement, Object parameter);
 }

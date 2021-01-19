@@ -34,10 +34,36 @@
         (#{id}, #{username}, #{age}, #{createTime}, #{updateTime}, #{delete})
     </insert>
 
+    <insert id="insertByDTOList" parameterType="com.github.zonev.abu.dto.UserDTO">
+        insert into t_user
+        (id, username, age, create_time, update_time, is_delete)
+        values
+        <foreach collection="userDTOList" item="user" separator=",">
+            (#{user.id}, #{user.username}, #{user.age}, #{user.createTime}, #{user.updateTime}, #{user.delete})
+        </foreach>
+    </insert>
+
+    <insert id="insertByDTOMap" parameterType="java.util.Map">
+        insert into t_user
+        (id, username, age, create_time, update_time, is_delete)
+        values
+        <foreach collection="userDTOMap" item="user" separator=",">
+            (#{user.id}, #{user.username}, #{user.age}, #{user.createTime}, #{user.updateTime}, #{user.delete})
+        </foreach>
+    </insert>
+
+    <insert id="insertByDTOField">
+        insert into t_user
+        (id, username, age, create_time, update_time, is_delete)
+        values
+        (#{id}, #{username}, #{age}, #{createTime}, #{updateTime}, #{delete})
+    </insert>
+
     <update id="updateAgeByUsername" parameterType="com.github.zonev.abu.dto.UserDTO">
         update t_user
         set age = #{age},
-            update_time = #{updateTime}
+            update_time = #{updateTime},
+            is_delete = #{delete}
         where username = #{username}
     </update>
 

@@ -25,6 +25,10 @@
 package com.github.zonev.abu.dao;
 
 import com.github.zonev.abu.dto.UserDTO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zonev
@@ -32,6 +36,12 @@ import com.github.zonev.abu.dto.UserDTO;
 public interface UserDao {
 
     int insertByDTO(UserDTO userDTO);
+
+    int insertByDTOList(@Param("userDTOList") List<UserDTO> list);
+
+    int insertByDTOMap(@Param("userDTOMap") Map<String, UserDTO> map);
+
+    int insertByDTOField(String username);
 
     int updateAgeByUsername(UserDTO userDTO);
 }

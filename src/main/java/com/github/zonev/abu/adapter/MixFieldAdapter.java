@@ -22,49 +22,22 @@
  * SOFTWARE.
  */
 
-package com.github.zonev.abu.config;
+package com.github.zonev.abu.adapter;
 
-import com.github.zonev.abu.enums.BindScene;
-
-import java.util.function.Supplier;
+import org.apache.ibatis.mapping.MappedStatement;
 
 /**
- * 绑定参数元信息
- *
  * @author Zonev
  */
-public class BindData {
+public class MixFieldAdapter implements FieldAdapter {
 
-    /**
-     * 绑定的字段名，该属性为实体类中对应的属性名
-     */
-    private final String column;
-
-    /**
-     * 字段名对应的取值方法或固定值
-     */
-    private final Supplier<Object> supplier;
-
-    /**
-     * 生效场景 {@link BindScene}
-     */
-    private final BindScene[] scene;
-
-    protected BindData(String column, Supplier<Object> supplier, BindScene[] scene) {
-        this.column = column;
-        this.supplier = supplier;
-        this.scene = scene;
+    @Override
+    public boolean support(Object parameter) {
+        return false;
     }
 
-    public String getColumn() {
-        return column;
-    }
+    @Override
+    public void doFieldFill(MappedStatement mappedStatement, Object parameter) {
 
-    public Supplier<Object> getSupplier() {
-        return supplier;
-    }
-
-    public BindScene[] getScene() {
-        return scene;
     }
 }

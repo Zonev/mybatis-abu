@@ -24,16 +24,21 @@
 
 package com.github.zonev.abu;
 
-import com.github.zonev.abu.config.BindDataConfig;
+import com.github.zonev.abu.config.FieldBindConfig;
 import com.github.zonev.abu.dao.UserDao;
 import com.github.zonev.abu.dto.UserDTO;
-import com.github.zonev.abu.enums.BindScene;
 import com.github.zonev.abu.util.CommonFieldUtils;
+import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zonev
@@ -44,15 +49,13 @@ public class DaoTest {
 
     private static final SqlSession sqlSession = SqlSessionHelper.getSqlSession();
 
-    private static final BindDataConfig bindDataConfig = new BindDataConfig();
-
     @BeforeEach
     public void getSqlSession() {
-        bindDataConfig
-                .add("id", CommonFieldUtils.nextId(), BindScene.INSERT)
-                .add("createTime", CommonFieldUtils.time(), BindScene.INSERT)
-                .add("updateTime", CommonFieldUtils.time(), BindScene.INSERT, BindScene.UPDATE)
-                .add("delete", false, BindScene.INSERT, BindScene.UPDATE);
+        FieldBindConfig.builder()
+                .bind("id", CommonFieldUtils::nextId, Long.class, SqlCommandType.INSERT)
+                .bind("createTime", CommonFieldUtils::time, Long.class, SqlCommandType.INSERT)
+                .bind("updateTime", CommonFieldUtils::time, Long.class, SqlCommandType.INSERT, SqlCommandType.UPDATE)
+                .bind("delete", false, Boolean.class, SqlCommandType.INSERT, SqlCommandType.UPDATE);
     }
 
     @Test
@@ -61,6 +64,41 @@ public class DaoTest {
         userDao.insertByDTO(
                 new UserDTO("小明", 20)
         );
+        sqlSession.commit();
+    }
+
+    @Test
+    public void insertByDTOList() {
+        List<UserDTO> list = Arrays.asList(
+                new UserDTO("小红", 1),
+                new UserDTO("小黄", 2),
+                new UserDTO("小绿", 3),
+                new UserDTO("小黑", 4),
+                new UserDTO("小白", 5),
+                new UserDTO("小蓝", 6)
+        );
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        userDao.insertByDTOList(list);
+        sqlSession.commit();
+    }
+
+    @Test
+    public void insertByDTOMap() {
+        Map<String, UserDTO> map = new HashMap<>();
+        map.put("a", new UserDTO("小红", 1));
+        map.put("b", new UserDTO("小黄", 2));
+        map.put("c", new UserDTO("小绿", 3));
+        map.put("d", new UserDTO("小黑", 4));
+        map.put("e", new UserDTO("小白", 5));
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        userDao.insertByDTOMap(map);
+        sqlSession.commit();
+    }
+
+    @Test
+    public void insertByDTOField() {
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        userDao.insertByDTOField("小明");
         sqlSession.commit();
     }
 

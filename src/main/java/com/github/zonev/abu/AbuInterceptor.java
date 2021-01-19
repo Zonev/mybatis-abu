@@ -24,38 +24,40 @@
 
 package com.github.zonev.abu;
 
+import com.github.zonev.abu.config.FieldBindConfig;
+import com.github.zonev.abu.adapter.FieldAdapter;
+import com.github.zonev.abu.adapter.BeanFieldAdapter;
+import com.github.zonev.abu.processor.FieldProcessor;
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 /**
  * @author Zonev
  */
-@Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})})
+@Intercepts({
+        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
+})
 public class AbuInterceptor implements Interceptor {
+
+    private final static Logger logger = LoggerFactory.getLogger(AbuInterceptor.class);
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-        SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
-        Object arg = invocation.getArgs()[1];
-        FieldProcessor fieldProcessor = new FieldProcessor();
-
-        fieldProcessor.fieldFill(sqlCommandType, arg);
-        if (arg instanceof Map) {
-            ((Map<?, ?>) arg).forEach((k, v) -> {
-                if (v instanceof List) {
-                    ((List<?>) v).forEach(l -> fieldProcessor.fieldFill(sqlCommandType, l));
-                } else {
-                    fieldProcessor.fieldFill(sqlCommandType, v);
-                }
-            });
+        if (FieldBindConfig.getConfig().size() <= 0) {
+            throw new IllegalArgumentException("FieldBindConfig 配置不正确，请检查配置");
         }
+
+        FieldProcessor processor = new FieldProcessor();
+        processor.fieldFill(
+                (MappedStatement) invocation.getArgs()[0],
+                invocation.getArgs()[1]
+        );
+
         return invocation.proceed();
     }
 
@@ -65,7 +67,5 @@ public class AbuInterceptor implements Interceptor {
     }
 
     @Override
-    public void setProperties(Properties properties) {
-
-    }
+    public void setProperties(Properties properties) {}
 }

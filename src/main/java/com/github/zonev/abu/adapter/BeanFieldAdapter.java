@@ -22,23 +22,38 @@
  * SOFTWARE.
  */
 
-package com.github.zonev.abu.enums;
+package com.github.zonev.abu.adapter;
+
+import com.github.zonev.abu.config.FieldBindConfig;
+import com.github.zonev.abu.config.FieldBindInfo;
+import com.github.zonev.abu.util.FieldBindUtils;
+import org.apache.ibatis.binding.MapperMethod;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
+
+import java.util.Set;
 
 /**
- * 字段绑定场景定义
- *
  * @author Zonev
  */
-public enum BindScene {
+public class BeanFieldAdapter implements FieldAdapter {
 
-    /**
-     * 新增
-     */
-    INSERT,
+    @Override
+    public boolean support(Object parameter) {
+        return !(parameter instanceof MapperMethod.ParamMap);
+    }
 
-    /**
-     * 更新
-     */
-    UPDATE,
-    ;
+    @Override
+    public void doFieldFill(MappedStatement mappedStatement, Object parameter) {
+        Set<FieldBindInfo> config = FieldBindConfig.getConfig(mappedStatement.getSqlCommandType());
+        MetaObject metaObject = SystemMetaObject.forObject(parameter);
+        for (FieldBindInfo fieldBindInfo : config) {
+            FieldBindUtils.setByJavaField(
+                    metaObject,
+                    fieldBindInfo.getJavaField(),
+                    fieldBindInfo.getSupplier().get()
+            );
+        }
+    }
 }
