@@ -47,22 +47,27 @@ public class CollectionFieldAdapter implements FieldAdapter {
     @Override
     public void doFieldFill(MappedStatement mappedStatement, Object parameter) {
         Set<Collection<?>> collectionSet = new HashSet<>();
-        Set<FieldBindInfo> config = FieldBindConfig.getConfig(mappedStatement.getSqlCommandType());
+        Set<FieldBindInfo> config = FieldBindConfig.getInstance().getFieldBindInfoMap().get(mappedStatement.getSqlCommandType());
 
         ((Map<?, ?>) parameter).forEach((k, v) -> {
             if (v instanceof Collection) {
                 collectionSet.add((Collection<?>) v);
             }
         });
-        for (Collection<?> collection : collectionSet) {
-            for (Object object : collection) {
-                MetaObject metaObject = SystemMetaObject.forObject(object);
-                for (FieldBindInfo fieldBindInfo : config) {
-                    FieldBindUtils.setByJavaField(
-                            metaObject,
-                            fieldBindInfo.getJavaField(),
-                            fieldBindInfo.getSupplier().get()
-                    );
+        if (collectionSet.size() > 0) {
+            for (Collection<?> collection : collectionSet) {
+                for (Object object : collection) {
+                    if (!FieldBindConfig.getInstance().getBaseModel().isInstance(object)) {
+                        break;
+                    }
+                    MetaObject metaObject = SystemMetaObject.forObject(object);
+                    for (FieldBindInfo fieldBindInfo : config) {
+                        FieldBindUtils.setByJavaField(
+                                metaObject,
+                                fieldBindInfo.getJavaField(),
+                                fieldBindInfo.getSupplier().get()
+                        );
+                    }
                 }
             }
         }

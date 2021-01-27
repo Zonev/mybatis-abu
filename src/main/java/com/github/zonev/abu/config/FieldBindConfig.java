@@ -40,41 +40,48 @@ import java.util.function.Supplier;
  */
 public class FieldBindConfig {
 
-    private final static Map<SqlCommandType, Set<FieldBindInfo>> FIELD_BIND_INFO_MAP = new HashMap<>();
+    private FieldBindConfig() {
+    }
 
-    private final static List<FieldAdapter> ADAPTER_LIST;
+    private static FieldBindConfig instance = new FieldBindConfig();
+
+    private Map<SqlCommandType, Set<FieldBindInfo>> fieldBindInfoMap;
+
+    private List<FieldAdapter> adapterList;
+
+    private Class<?> baseModel;
 
     static {
-        ADAPTER_LIST = Arrays.asList(
+        FieldBindConfig instance = getInstance();
+        instance.adapterList = Arrays.asList(
                 new BeanFieldAdapter(),
                 new CollectionFieldAdapter(),
                 new MixFieldAdapter()
         );
+        instance.fieldBindInfoMap = new HashMap<>();
     }
 
-    public static Map<SqlCommandType, Set<FieldBindInfo>> getConfig() {
-        return FIELD_BIND_INFO_MAP;
+    public static FieldBindConfig getInstance() {
+        return instance;
     }
 
-    public static Set<FieldBindInfo> getConfig(SqlCommandType sceneTypes) {
-        return FIELD_BIND_INFO_MAP.get(sceneTypes);
+    public Map<SqlCommandType, Set<FieldBindInfo>> getFieldBindInfoMap() {
+        return fieldBindInfoMap;
     }
 
-    public static List<FieldAdapter> getAdapterList() {
-        return ADAPTER_LIST;
+    public List<FieldAdapter> getAdapterList() {
+        return adapterList;
+    }
+
+    public Class<?> getBaseModel() {
+        return baseModel;
     }
 
     public static Builder builder() {
-        return new Builder(FIELD_BIND_INFO_MAP);
+        return new Builder();
     }
 
     public static class Builder {
-
-        private final Map<SqlCommandType, Set<FieldBindInfo>> fieldBindInfoMap;
-
-        public Builder(Map<SqlCommandType, Set<FieldBindInfo>> fieldBindInfoMap) {
-            this.fieldBindInfoMap = fieldBindInfoMap;
-        }
 
         public Builder bind(String javaField, Object fieldValue, Class<?> fieldType, SqlCommandType... sceneTypes) {
             this.bind(javaField, javaField, fieldValue, fieldType, sceneTypes);
@@ -93,13 +100,18 @@ public class FieldBindConfig {
 
         public Builder bind(String javaField, String jdbcField, Supplier<?> fieldValueMethod, Class<?> fieldType, SqlCommandType... sceneTypes) {
             for (SqlCommandType sceneType : sceneTypes) {
-                Set<FieldBindInfo> fieldBindInfoSet = this.fieldBindInfoMap.get(sceneType);
+                Set<FieldBindInfo> fieldBindInfoSet = getInstance().fieldBindInfoMap.get(sceneType);
                 if (fieldBindInfoSet == null) {
                     fieldBindInfoSet = new HashSet<>();
                 }
                 fieldBindInfoSet.add(new FieldBindInfo(javaField, jdbcField, fieldValueMethod, fieldType, sceneTypes));
-                fieldBindInfoMap.put(sceneType, fieldBindInfoSet);
+                getInstance().fieldBindInfoMap.put(sceneType, fieldBindInfoSet);
             }
+            return this;
+        }
+
+        public Builder baseModel(Class<?> baseModel) {
+            getInstance().baseModel = baseModel;
             return this;
         }
     }

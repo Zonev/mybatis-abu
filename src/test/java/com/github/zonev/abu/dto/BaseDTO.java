@@ -27,38 +27,55 @@ package com.github.zonev.abu.dto;
 /**
  * @author Zonev
  */
-public class UserDTO extends BaseDTO {
+public abstract class BaseDTO {
 
-    private String username;
+    private Long id;
 
-    private Integer age;
+    private Long createTime;
 
-    public UserDTO(String username, Integer age) {
-        this.username = username;
-        this.age = age;
+    private Long updateTime;
+
+    private Boolean delete;
+
+    public Long getId() {
+        return id;
     }
 
-    public String getUsername() {
-        return username;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public Integer getAge() {
-        return age;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "username='" + username + '\'' +
-                ", age=" + age +
+        return "BaseDTO{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", delete=" + delete +
                 '}';
     }
 }

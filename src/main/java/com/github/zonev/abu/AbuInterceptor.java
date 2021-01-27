@@ -44,12 +44,13 @@ import java.util.Properties;
 })
 public class AbuInterceptor implements Interceptor {
 
-    private final static Logger logger = LoggerFactory.getLogger(AbuInterceptor.class);
-
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        if (FieldBindConfig.getConfig().size() <= 0) {
+        if (FieldBindConfig.getInstance().getFieldBindInfoMap().size() <= 0) {
             throw new IllegalArgumentException("FieldBindConfig 配置不正确，请检查配置");
+        }
+        if (FieldBindConfig.getInstance().getBaseModel() == null) {
+            throw new IllegalArgumentException("BaseModel 配置不正确，请检查配置");
         }
 
         FieldProcessor processor = new FieldProcessor();

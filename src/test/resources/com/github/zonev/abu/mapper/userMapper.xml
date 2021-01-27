@@ -59,6 +59,10 @@
         (#{id}, #{username}, #{age}, #{createTime}, #{updateTime}, #{delete})
     </insert>
 
+    <insert id="insertByDTOMix">
+
+    </insert>
+
     <update id="updateAgeByUsername" parameterType="com.github.zonev.abu.dto.UserDTO">
         update t_user
         set age = #{age},

@@ -26,6 +26,7 @@ package com.github.zonev.abu;
 
 import com.github.zonev.abu.config.FieldBindConfig;
 import com.github.zonev.abu.dao.UserDao;
+import com.github.zonev.abu.dto.BaseDTO;
 import com.github.zonev.abu.dto.UserDTO;
 import com.github.zonev.abu.util.CommonFieldUtils;
 import org.apache.ibatis.mapping.SqlCommandType;
@@ -55,7 +56,8 @@ public class DaoTest {
                 .bind("id", CommonFieldUtils::nextId, Long.class, SqlCommandType.INSERT)
                 .bind("createTime", CommonFieldUtils::time, Long.class, SqlCommandType.INSERT)
                 .bind("updateTime", CommonFieldUtils::time, Long.class, SqlCommandType.INSERT, SqlCommandType.UPDATE)
-                .bind("delete", false, Boolean.class, SqlCommandType.INSERT, SqlCommandType.UPDATE);
+                .bind("delete", false, Boolean.class, SqlCommandType.INSERT, SqlCommandType.UPDATE)
+                .baseModel(BaseDTO.class);
     }
 
     @Test

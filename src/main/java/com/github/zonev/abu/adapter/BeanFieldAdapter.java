@@ -27,7 +27,6 @@ package com.github.zonev.abu.adapter;
 import com.github.zonev.abu.config.FieldBindConfig;
 import com.github.zonev.abu.config.FieldBindInfo;
 import com.github.zonev.abu.util.FieldBindUtils;
-import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
@@ -41,12 +40,12 @@ public class BeanFieldAdapter implements FieldAdapter {
 
     @Override
     public boolean support(Object parameter) {
-        return !(parameter instanceof MapperMethod.ParamMap);
+        return FieldBindConfig.getInstance().getBaseModel().isInstance(parameter);
     }
 
     @Override
     public void doFieldFill(MappedStatement mappedStatement, Object parameter) {
-        Set<FieldBindInfo> config = FieldBindConfig.getConfig(mappedStatement.getSqlCommandType());
+        Set<FieldBindInfo> config = FieldBindConfig.getInstance().getFieldBindInfoMap().get(mappedStatement.getSqlCommandType());
         MetaObject metaObject = SystemMetaObject.forObject(parameter);
         for (FieldBindInfo fieldBindInfo : config) {
             FieldBindUtils.setByJavaField(

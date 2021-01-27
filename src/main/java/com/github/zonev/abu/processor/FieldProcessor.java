@@ -34,7 +34,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 public class FieldProcessor {
 
     public void fieldFill(MappedStatement mappedStatement, Object parameter) {
-        for (FieldAdapter fieldAdapter : FieldBindConfig.getAdapterList()) {
+        for (FieldAdapter fieldAdapter : FieldBindConfig.getInstance().getAdapterList()) {
             if (fieldAdapter.support(parameter)) {
                 fieldAdapter.doFieldFill(mappedStatement, parameter);
                 break;

@@ -30,7 +30,7 @@
 
     <groupId>com.github.zonev</groupId>
     <artifactId>abu</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <name>mybatis-abu</name>
     <description>基于 Mybatis Plugin 机制实现的在 update 或 insert 数据时自动绑定通用字段，让业务代码更加精简</description>
