@@ -35,6 +35,8 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import java.util.*;
 
 /**
+ * 集合适配器
+ *
  * @author Zonev
  */
 public class CollectionFieldAdapter implements FieldAdapter {

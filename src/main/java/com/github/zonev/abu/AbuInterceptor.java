@@ -28,8 +28,6 @@ import com.github.zonev.abu.config.FieldBindConfig;
 import com.github.zonev.abu.adapter.FieldAdapter;
 import com.github.zonev.abu.adapter.BeanFieldAdapter;
 import com.github.zonev.abu.processor.FieldProcessor;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;

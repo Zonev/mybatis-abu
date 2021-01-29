@@ -27,6 +27,8 @@ package com.github.zonev.abu.adapter;
 import org.apache.ibatis.mapping.MappedStatement;
 
 /**
+ * 混合适配器
+ *
  * @author Zonev
  */
 public class MixFieldAdapter implements FieldAdapter {

@@ -34,6 +34,8 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import java.util.Set;
 
 /**
+ * 单一实体对象适配器
+ *
  * @author Zonev
  */
 public class BeanFieldAdapter implements FieldAdapter {

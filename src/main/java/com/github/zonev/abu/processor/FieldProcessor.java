@@ -29,10 +29,18 @@ import com.github.zonev.abu.config.FieldBindConfig;
 import org.apache.ibatis.mapping.MappedStatement;
 
 /**
+ * 通用字段填充执行器
+ *
  * @author Zonev
  */
 public class FieldProcessor {
 
+    /**
+     * 执行性方法入口
+     *
+     * @param mappedStatement MappedStatement
+     * @param parameter       Object
+     */
     public void fieldFill(MappedStatement mappedStatement, Object parameter) {
         for (FieldAdapter fieldAdapter : FieldBindConfig.getInstance().getAdapterList()) {
             if (fieldAdapter.support(parameter)) {

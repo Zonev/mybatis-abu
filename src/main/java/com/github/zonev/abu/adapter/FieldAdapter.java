@@ -27,11 +27,25 @@ package com.github.zonev.abu.adapter;
 import org.apache.ibatis.mapping.MappedStatement;
 
 /**
+ * 通用字段填充方法适配器接口
+ *
  * @author Zonev
  */
 public interface FieldAdapter {
 
+    /**
+     * 判断是否被该适配器支持
+     *
+     * @param parameter Object
+     * @return true:支持 false:不支持
+     */
     boolean support(Object parameter);
 
+    /**
+     * 字段填充
+     *
+     * @param mappedStatement MappedStatement
+     * @param parameter       Object
+     */
     void doFieldFill(MappedStatement mappedStatement, Object parameter);
 }

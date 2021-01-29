@@ -29,12 +29,22 @@ import org.apache.ibatis.reflection.MetaObject;
 import java.util.Objects;
 
 /**
+ * 通用字段填充工具类
+ *
  * @author Zonev
  */
 public class FieldBindUtils {
 
-    private FieldBindUtils() {}
+    private FieldBindUtils() {
+    }
 
+    /**
+     * 填充字段
+     *
+     * @param metaObject 元数据对象
+     * @param javaField  对应的 JavaBean 属性
+     * @param fieldValue 具体字段属性值
+     */
     public static void setByJavaField(MetaObject metaObject, String javaField, Object fieldValue) {
         if (metaObject.hasSetter(javaField) && Objects.isNull(metaObject.getValue(javaField))) {
             metaObject.setValue(javaField, fieldValue);
